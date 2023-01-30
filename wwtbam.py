@@ -1,4 +1,8 @@
 #who wants to be a millionaire terminal game
+class Player:
+    def __init__(self, name):
+        self.name = name
+
 class Question:
     def __init__(self, number, question, options, answer):
         self.number = number
@@ -14,3 +18,22 @@ class Game:
             Question(3, "What is the largest ocean in the world?", ["A. Atlantic", "B. Indian", "C. Arctic", "D. Pacific"], "D"),
             Question(4, "Who painted the Mona Lisa?", ["A. Michelangelo", "B. Leonardo da Vinci", "C. Raphael", "D.Donatello"], "B")
 ]
+
+    def play(self):
+        player_name = input("Please enter your name: ")
+        player = Player(player_name)
+        
+        for q in self.questions:
+            print()
+            print("Question {}:".format(q.number))
+            print(q.question)
+            print(*q.options, sep="\n")
+            answer = input("Your answer: ").upper()
+
+            if answer == q.answer:
+                print("\nCorrect!")
+            else:
+                print("\nIncorrect!")
+
+game = Game()
+game.play()
