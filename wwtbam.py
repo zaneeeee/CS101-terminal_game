@@ -8,7 +8,7 @@ class Player:
         self.score = 0
     # Method to update player's score
     def update_score(self, score):
-        self.score = score
+        self.score += score
 
 # Define questions, options, answers
 questions = [
@@ -33,8 +33,6 @@ questions = [
         'answer': 'Pacific Ocean'
     }
 ]
-
-question_value = [500, 1000, 2000, 5000, 10000, 20000, 50000, 75000, 1500000, 200000, 500000, 1000000]
 
 # Class to handle the game
 class Game:
@@ -61,6 +59,7 @@ WHO WANTS TO BE A...
         player_name = input("Please enter your name: ") #get the player's name
         player = Player(player_name) #instantiate the player object
         print(f"\nWelcome to WWTBAM {player.name}!") #welcome message for game
+        current_score = 0
 
         # Loop through questions list
         for index, question in enumerate(self.questions):
@@ -84,8 +83,9 @@ WHO WANTS TO BE A...
 
             # If the answer is correct, update the player's score and print "Correct!"
             if self.answer == chr(97 + self.options.index(question['answer'])).upper():
-                print("\nCorrect!") 
-                player.update_score(question_value[index])
+                print("\nCorrect!")
+                current_score += (index + 1) * 100
+                player.update_score(current_score)
             else:
                 # If the answer is incorrect, print "Incorrect!" and an exit message
                 print("\nIncorrect!")
