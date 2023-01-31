@@ -125,12 +125,11 @@ WHO WANTS TO BE A...
                 print(f"{chr(97 + j).lower()}. {option}") #print the options
 
             # Check to ensure the player's input is 'a', 'b', 'c', or 'd'
-            while True:
-                answer = input("Your answer: ").lower()
-                if answer in ["a", "b", "c", "d"]:
-                    break
-                else:
-                    print("Invalid input. Please enter a valid answer (a, b, c, or d)")
+            answer = ''
+            while answer not in ['a', 'b', 'c', 'd']:
+                answer = input("Enter your answer (a, b, c, d): ").lower()
+                if answer not in ['a', 'b', 'c', 'd']:
+                    print("Invalid input. Please enter a, b, c, or d.")
 
             # If the answer is correct, update the player's score and print "Correct!"
             if answer == chr(97 + options.index(question['answer'])).lower():
@@ -140,7 +139,7 @@ WHO WANTS TO BE A...
             else:
                 # If the answer is incorrect, print "Incorrect!"
                 print("\nIncorrect!")
-                print(f"\nThanks for playing WWTBAM, {player.name}. Better luck next time!")
+                print(f"\nThanks for playing WWTBAM, {player.name}. Your final score was {player.score}, better luck next time!")
                 if self.game_over():
                     return self.play() #restart game
                 else:
