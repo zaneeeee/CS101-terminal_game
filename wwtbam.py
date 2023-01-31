@@ -52,6 +52,18 @@ WHO WANTS TO BE A...
 
         """)
 
+    # Game over method: quit or restart
+    def game_over(self, player):
+        print(f"\nThanks for playing WWTBAM, {player.name}. Better luck next time!")
+        while True:
+            choice = input("Would you like to restart the game (r) or quit (q)?: ").lower()
+            if choice == 'r':
+                return True
+            elif choice == 'q':
+                return False
+            else:
+                print("Invalid input. Please enter 'r' to restart or 'q' to quit.")
+
     # Main method to run game
     def play(self):
         random.shuffle(self.questions) #randomize the order of questions
@@ -68,29 +80,31 @@ WHO WANTS TO BE A...
             print(f"{question['question']}") #print the question
 
             # Randomise the order of options
-            self.options = question['options']
-            random.shuffle(self.options)
-            for j, option in enumerate(self.options):
-                print(f"{chr(97 + j).upper()}. {option}") #print the options
+            options = question['options']
+            random.shuffle(options)
+            for j, option in enumerate(options):
+                print(f"{chr(97 + j).lower()}. {option}") #print the options
 
-            # Check to ensure the player's input is 'A', 'B', 'C', or 'D'
+            # Check to ensure the player's input is 'a', 'b', 'c', or 'd'
             while True:
-                self.answer = input("Your answer: ").upper()
-                if self.answer in ["A", "B", "C", "D"]:
+                answer = input("Your answer: ").lower()
+                if answer in ["a", "b", "c", "d"]:
                     break
                 else:
-                    print("Invalid input. Please enter a valid answer (A, B, C, or D)")
+                    print("Invalid input. Please enter a valid answer (a, b, c, or d)")
 
             # If the answer is correct, update the player's score and print "Correct!"
-            if self.answer == chr(97 + self.options.index(question['answer'])).upper():
+            if answer == chr(97 + options.index(question['answer'])).lower():
                 print("\nCorrect!")
                 current_score += (index + 1) * 100
                 player.update_score(current_score)
             else:
-                # If the answer is incorrect, print "Incorrect!" and an exit message
+                # If the answer is incorrect, print "Incorrect!"
                 print("\nIncorrect!")
-                print(f"\nThanks for playing WWTBAM, {player.name}. Better luck next time!")
-                exit()
+                if self.game_over(player):
+                    return self.play() #restart game
+                else:
+                    exit() #quit game
 
             # Print player's current score
             print(f"\nCurrent score: {player.score}")
