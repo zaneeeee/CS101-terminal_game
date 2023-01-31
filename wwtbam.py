@@ -32,8 +32,8 @@ WHO WANTS TO BE A...
  | |\/| | | | | |    | |      | || |  | | . ` | / /\ \ |  _  /|  __|   / / 
  | |  | |_| |_| |____| |____ _| || |__| | |\  |/ ____ \| | \ \| |____ |_|  
  |_|  |_|_____|______|______|_____\____/|_| \_/_/    \_\_|  \_\______|(_)  
-                                                                                                                                             
-        """)
+ 
+ """)
         print("""Welcome to WWTBAM! You will be asked a series of multiple-choice questions that each have four 
 possible answers (A,B,C,D). You must answer all of these questions correctly, one at a time, in 
 order to win the million dollars. As soon as you answer a question incorrectly, the game is over.
@@ -49,7 +49,14 @@ order to win the million dollars. As soon as you answer a question incorrectly, 
             print("Question {}:".format(q.number))
             print(q.question)
             print(*q.options, sep="\n")
-            answer = input("Your answer: ").upper()
+            
+            #Add check to ensure the user's input is 'A', 'B', 'C', or 'D'
+            while True:
+                answer = input("Your answer: ").upper()
+                if answer in ['A', 'B', 'C', 'D']:
+                    break
+                else:
+                    print("Invalid input. Please enter a valid answer (A, B, C, or D)")
 
             if answer == q.answer:
                 print("\nCorrect!")
