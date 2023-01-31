@@ -31,6 +31,46 @@ questions = [
         'question': 'What is the largest ocean in the world?',
         'options': ['Indian Ocean', 'Atlantic Ocean', 'Arctic Ocean', 'Pacific Ocean'],
         'answer': 'Pacific Ocean'
+    },
+    {
+        'question': 'Who is the current President of the United States?',
+        'options': ['Barack Obama', 'Donald Trump', 'Joe Biden', 'George W. Bush'],
+        'answer': 'Joe Biden'
+    },
+    {
+        'question': 'What is the largest desert in the world?',
+        'options': ['Antarctica', 'Sahara Desert', 'Arabian Desert', 'Gobi Desert'],
+        'answer': 'Sahara Desert'
+    },
+    {
+        'question': 'What is the longest river in the world?',
+        'options': ['Nile River', 'Amazon River', 'Yangtze River', 'Yellow River'],
+        'answer': 'Nile River'
+    },
+    {
+        'question': 'Who is the author of the Harry Potter series?',
+        'options': ['J.K. Rowling', 'Stephen King', 'John Green', 'Suzanne Collins'],
+        'answer': 'J.K. Rowling'
+    },
+    {
+        'question': 'Who painted the famous artwork "The Starry Night"?',
+        'options': ['Vincent van Gogh', 'Pablo Picasso', 'Rembrandt', 'Claude Monet'],
+        'answer': 'Vincent van Gogh'
+    },
+    {
+        'question': 'What is the chemical symbol for gold?',
+        'options': ['Au', 'Ag', 'Fe', 'Al'],
+        'answer': 'Au'
+    },
+    {
+        'question': 'Who was the first man to walk on the moon?',
+        'options': ['Neil Armstrong', 'Buzz Aldrin', 'Yuri Gagarin', 'John Glenn'],
+        'answer': 'Neil Armstrong'
+    },
+    {
+        'question': 'Who discovered America?',
+        'options': ['Christopher Columbus', 'Leif Erikson', 'Marco Polo', 'Vasco da Gama'],
+        'answer': 'Christopher Columbus'
     }
 ]
 
@@ -53,8 +93,7 @@ WHO WANTS TO BE A...
         """)
 
     # Game over method: quit or restart
-    def game_over(self, player):
-        print(f"\nThanks for playing WWTBAM, {player.name}. Better luck next time!")
+    def game_over(self):
         while True:
             choice = input("Would you like to restart the game (r) or quit (q)?: ").lower()
             if choice == 'r':
@@ -101,7 +140,8 @@ WHO WANTS TO BE A...
             else:
                 # If the answer is incorrect, print "Incorrect!"
                 print("\nIncorrect!")
-                if self.game_over(player):
+                print(f"\nThanks for playing WWTBAM, {player.name}. Better luck next time!")
+                if self.game_over():
                     return self.play() #restart game
                 else:
                     exit() #quit game
@@ -111,6 +151,10 @@ WHO WANTS TO BE A...
 
         # Print the final score after all questions have been answered
         print(f"Thanks for playing, {player.name}! Your final score is {player.score}")
+        if self.game_over():
+            return self.play() #restart game
+        else:
+            exit() #quit game
 
 game = Game()
 game.play()
