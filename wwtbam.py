@@ -83,13 +83,13 @@ class Game:
     def title(self):
         print("""
 WHO WANTS TO BE A...
-  __  __ _____ _      _      _____ ____  _   _          _____  ______ ___  
- |  \/  |_   _| |    | |    |_   _/ __ \| \ | |   /\   |  __ \|  ____|__ \ 
- | \  / | | | | |    | |      | || |  | |  \| |  /  \  | |__) | |__     ) |
- | |\/| | | | | |    | |      | || |  | | . ` | / /\ \ |  _  /|  __|   / / 
- | |  | |_| |_| |____| |____ _| || |__| | |\  |/ ____ \| | \ \| |____ |_|  
- |_|  |_|_____|______|______|_____\____/|_| \_/_/    \_\_|  \_\______|(_)  
 
+███╗   ███╗██╗██╗     ██╗     ██╗ ██████╗ ███╗   ██╗ █████╗ ██╗██████╗ ███████╗██████╗ 
+████╗ ████║██║██║     ██║     ██║██╔═══██╗████╗  ██║██╔══██╗██║██╔══██╗██╔════╝╚════██╗
+██╔████╔██║██║██║     ██║     ██║██║   ██║██╔██╗ ██║███████║██║██████╔╝█████╗    ▄███╔╝
+██║╚██╔╝██║██║██║     ██║     ██║██║   ██║██║╚██╗██║██╔══██║██║██╔══██╗██╔══╝    ▀▀══╝ 
+██║ ╚═╝ ██║██║███████╗███████╗██║╚██████╔╝██║ ╚████║██║  ██║██║██║  ██║███████╗  ██╗   
+╚═╝     ╚═╝╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝  ╚═╝
         """)
 
     # Game over method: quit or restart
@@ -121,14 +121,15 @@ WHO WANTS TO BE A...
             # Randomise the order of options
             options = question['options']
             random.shuffle(options)
+            answer_options = ['a', 'b', 'c', 'd'] #define a constant that stores the letter options
             for j, option in enumerate(options):
-                print(f"{chr(97 + j).lower()}. {option}") #print the options
+                print(f"{answer_options[j]}. {option}") #print the options
 
             # Check to ensure the player's input is 'a', 'b', 'c', or 'd'
             answer = ''
-            while answer not in ['a', 'b', 'c', 'd']:
+            while answer not in answer_options:
                 answer = input("Enter your answer (a, b, c, d): ").lower()
-                if answer not in ['a', 'b', 'c', 'd']:
+                if answer not in answer_options:
                     print("Invalid input. Please enter a, b, c, or d.")
 
             # If the answer is correct, update the player's score and print "Correct!"
