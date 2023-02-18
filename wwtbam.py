@@ -1,17 +1,20 @@
 # Who wants to be a millionaire terminal game
 import random
 
-# Class to store player information such as name and score
-class Player:
-    def __init__(self, name):
-        self.name = name
-        self.score = 0
-    # Method to update player's score
-    def update_score(self, score):
-        self.score += score
+# Define constant variables
+ANSWER_OPTIONS = ['a', 'b', 'c', 'd']
+POINTS = [100, 1000, 10000, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 1000000]
+BANNER = """
+WHO WANTS TO BE A...
 
-# Define questions, options, answers
-questions = [
+███╗   ███╗██╗██╗     ██╗     ██╗ ██████╗ ███╗   ██╗ █████╗ ██╗██████╗ ███████╗██████╗ 
+████╗ ████║██║██║     ██║     ██║██╔═══██╗████╗  ██║██╔══██╗██║██╔══██╗██╔════╝╚════██╗
+██╔████╔██║██║██║     ██║     ██║██║   ██║██╔██╗ ██║███████║██║██████╔╝█████╗    ▄███╔╝
+██║╚██╔╝██║██║██║     ██║     ██║██║   ██║██║╚██╗██║██╔══██║██║██╔══██╗██╔══╝    ▀▀══╝ 
+██║ ╚═╝ ██║██║███████╗███████╗██║╚██████╔╝██║ ╚████║██║  ██║██║██║  ██║███████╗  ██╗   
+╚═╝     ╚═╝╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝  ╚═╝
+    """
+QUESTIONS = [
     {
         'question': 'What is the capital of France?',
         'options': ['London', 'Paris', 'Berlin', 'Madrid'],
@@ -74,87 +77,81 @@ questions = [
     }
 ]
 
+# Class to store player information such as name and score
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.score = 0
+
+    def __repr__(self):
+        return f"{self.name}, your score is {self.score}"
+
+    # Method to update player's score
+    def update_score(self, index):
+        self.score = POINTS[index]
+
 # Class to handle the game
 class Game:
     def __init__(self):
-        self.questions = questions
-
-    # Title for the game
-    def title(self):
-        print("""
-WHO WANTS TO BE A...
-
-███╗   ███╗██╗██╗     ██╗     ██╗ ██████╗ ███╗   ██╗ █████╗ ██╗██████╗ ███████╗██████╗ 
-████╗ ████║██║██║     ██║     ██║██╔═══██╗████╗  ██║██╔══██╗██║██╔══██╗██╔════╝╚════██╗
-██╔████╔██║██║██║     ██║     ██║██║   ██║██╔██╗ ██║███████║██║██████╔╝█████╗    ▄███╔╝
-██║╚██╔╝██║██║██║     ██║     ██║██║   ██║██║╚██╗██║██╔══██║██║██╔══██╗██╔══╝    ▀▀══╝ 
-██║ ╚═╝ ██║██║███████╗███████╗██║╚██████╔╝██║ ╚████║██║  ██║██║██║  ██║███████╗  ██╗   
-╚═╝     ╚═╝╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝  ╚═╝
-        """)
+        self.questions = QUESTIONS
 
     # Game over method: quit or restart
     def game_over(self):
+        choice = input("Would you like to restart the game (r) or quit (q)?: ").lower()
+        if choice == 'r':
+            return self.play()
+        elif choice == 'q':
+            return exit()
+        else:
+            print("Invalid input. Please enter 'r' to restart or 'q' to quit.")
+
+    # Get user input method
+    def get_user_input(self, valid_input):
         while True:
-            choice = input("Would you like to restart the game (r) or quit (q)?: ").lower()
-            if choice == 'r':
-                return True
-            elif choice == 'q':
-                return False
+            user_input = input("Enter your choice: ")
+            # Check to ensure the player's input is valid
+            if user_input in valid_input:
+                return user_input
             else:
-                print("Invalid input. Please enter 'r' to restart or 'q' to quit.")
+                print("Invalid input. Please enter a, b, c, or d.")
 
     # Main method to run game
     def play(self):
         random.shuffle(self.questions) #randomize the order of questions
-        self.title() #print title
+        print(BANNER)
         player_name = input("Please enter your name: ") #get the player's name
         player = Player(player_name) #instantiate the player object
         print(f"\nWelcome to WWTBAM {player.name}!") #welcome message for game
-        current_score = 0
 
         # Loop through questions list
         for index, question in enumerate(self.questions):
-            print()
-            print(f"Question {index + 1}:") #print the question number
+            print(f"\nQuestion {index + 1}:") #print the question number
             print(f"{question['question']}") #print the question
 
             # Randomise the order of options
             options = question['options']
             random.shuffle(options)
-            answer_options = ['a', 'b', 'c', 'd'] #define a constant that stores the letter options
             for j, option in enumerate(options):
-                print(f"{answer_options[j]}. {option}") #print the options
+                print(f"{ANSWER_OPTIONS[j]}. {option}") #print the options
 
-            # Check to ensure the player's input is 'a', 'b', 'c', or 'd'
-            answer = ''
-            while answer not in answer_options:
-                answer = input("Enter your answer (a, b, c, d): ").lower()
-                if answer not in answer_options:
-                    print("Invalid input. Please enter a, b, c, or d.")
+            answer = self.get_user_input(ANSWER_OPTIONS) #get user input
 
             # If the answer is correct, update the player's score and print "Correct!"
             if answer == chr(97 + options.index(question['answer'])).lower():
                 print("\nCorrect!")
-                current_score += (index + 1) * 100
-                player.update_score(current_score)
+                player.update_score(index)
             else:
                 # If the answer is incorrect, print "Incorrect!"
                 print("\nIncorrect!")
-                print(f"\nThanks for playing WWTBAM, {player.name}. Your final score was {player.score}, better luck next time!")
-                if self.game_over():
-                    return self.play() #restart game
-                else:
-                    exit() #quit game
+                print("Thanks for playing, " + repr(player))
+                self.game_over()
 
             # Print player's current score
-            print(f"\nCurrent score: {player.score}")
+            print(repr(player))
 
         # Print the final score after all questions have been answered
-        print(f"Thanks for playing, {player.name}! Your final score is {player.score}")
-        if self.game_over():
-            return self.play() #restart game
-        else:
-            exit() #quit game
+        print("Thanks for playing, " + repr(player))
+        self.game_over()
 
 game = Game()
 game.play()
