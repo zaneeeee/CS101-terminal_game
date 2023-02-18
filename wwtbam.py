@@ -18,17 +18,29 @@ WHO WANTS TO BE A...
 ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝  ╚═╝
     """
 
-# Class to store player information such as name and score
 class Player:
+    """
+    Represents a player with a name and score.
+
+    Attributes:
+    - name (str): the player's name
+    - score (int): the player's current score
+
+    Methods:
+    - update_score(index): updates the player's score based on the given index,
+      which is used to retrieve the point value from the constant POINTS list
+    """
     def __init__(self, name):
+        """Initializes a new Player object with the given name and a score of 0"""
         self.name = name
         self.score = 0
 
     def __repr__(self):
+        """Return a string representation of the player's score"""
         return f"{self.name}, your score is {self.score}"
 
-    # Method to update player's score
     def update_score(self, index):
+        """Updates the player's score based on the given index"""
         self.score = POINTS[index]
 
 # Class to handle the game
@@ -84,14 +96,14 @@ class Game:
             else:
                 # If the answer is incorrect, print "Incorrect!"
                 print("\nIncorrect!")
-                print("Thanks for playing, " + repr(player))
+                print("Thanks for playing " + repr(player))
                 self.game_over()
 
             # Print player's current score
             print(repr(player))
 
         # Print the final score after all questions have been answered
-        print("Thanks for playing, " + repr(player))
+        print("Thanks for playing " + repr(player))
         self.game_over()
 
 game = Game()
