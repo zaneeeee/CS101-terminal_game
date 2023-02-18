@@ -20,3 +20,15 @@ The game includes the following features:
 - If they answer incorrectly, the game is over and their final score is displayed.
 - If the player answers all questions correctly, they win the maximum prize of 1 million points.
 - The game can be restarted or quit at the end of the game.
+
+## Project Objectives:
+- Build a terminal program using Python
+- Add at least one interactive feature using input()
+- Use Git version control
+- Use the command line and file navigation
+- Write a technical blog post on the project
+
+## Prerequisites:
+- Python
+- Git/GitHub
+- Command Line and File Navigation
